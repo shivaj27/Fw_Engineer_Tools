@@ -15,3 +15,9 @@ jobs:
         run: |
           echo "Firmware AI chips steps"
           echo "AMD design"
+  KWS-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: keyword_scan tools
+        run: |
+          echo "full repo scan including case senstive also"
