@@ -5,13 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create
-        run:|
-        echo "firmware binaries"
-        echo "tools packages"
+         run: |
+         echo "Firmware binaries"
+         echo "tools packages"
       - name: Build
-        run:|
-        echo "hardware tools"
+         run: |
+         echo "hardware tools"
       - name: Release
-        run:|
-        echo "Firmware AI chips steps"
-        echo "AMD design"
+         run: |
+         echo "Firmware AI chips steps"
+         echo "AMD design"
