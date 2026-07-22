@@ -24,7 +24,7 @@ jobs:
           echo "full repo scan including case senstive also"
 
   AI-scan:
-    needs: [my-job, KWS-scan, AI-scan]
+    needs: [my-job, KWS-scan]
     runs-on: ubuntu-latest
     steps:
       - name: AI_platform scan
