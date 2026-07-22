@@ -1,32 +1,70 @@
-name: hello-world
-on: workflow_dispatch
-jobs:
-  my-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: create
-        run: |
-          echo "Firmware binaries"
-          echo "tools packages"
-      - name: Build
-        run: |
-          echo "hardware tools"
-      - name: Release
-        run: |
-          echo "Firmware AI chips steps"
-          echo "AMD design"
-  KWS-scan:
-    needs: [my-job]
-    runs-on: ubuntu-latest
-    steps:
-      - name: keyword_scan tools
-        run: |
-          echo "full repo scan including case senstive also"
+name: Python Unit
 
-  AI-scan:
-    needs: [my-job, KWS-scan]
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  style:
     runs-on: ubuntu-latest
+
     steps:
-      - name: AI_platform scan
-        run: |
-          echo "LLM will scan this whole repo"
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.7"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install -r dev-requirements.txt
+    - name: Test with pytest
+      run: |
+        flake8
+
+  build:
+    strategy:
+      matrix:
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install -r dev-requirements.txt
+    - name: Test with pytest
+      run: |
+        pytest --verbose
+
+  windows:
+    strategy:
+      matrix:
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+        os: [windows-latest]
+    runs-on: ${{ matrix.os }}
+    needs: [style, build]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install -r dev-requirements.txt
+    - name: Test with pytest
+      run: |
+        pytest --verbose
