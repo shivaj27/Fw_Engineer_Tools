@@ -4,5 +4,14 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: create
+        run: |
+        echo "firmware binaries"
+        echo "tools packages"
+      - name: Build
+        run: |
+        echo "hardware tools"
+      - name: Release
+        run: |
+        echo "Firmware AI chips steps"
+        echo "AMD design"
