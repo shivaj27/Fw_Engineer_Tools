@@ -27,4 +27,4 @@ jobs:
     steps:
       - name: AI_platform scan
         run: |
-          echo "LLM will scan this whole repo
+          echo "LLM will scan this whole repo"
