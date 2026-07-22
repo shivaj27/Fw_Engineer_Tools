@@ -21,3 +21,10 @@ jobs:
       - name: keyword_scan tools
         run: |
           echo "full repo scan including case senstive also"
+
+  AI-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: AI_platform scan
+        run: |
+          echo "LLM will scan this whole repo
